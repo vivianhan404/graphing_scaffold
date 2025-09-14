@@ -664,7 +664,8 @@
       fruit_dot_graph
     ];
 
-    const isJumbled = true;
+    const isJumbled = jsPsych.randomization.sampleBernoulli(0.5);
+    console.log(isJumbled);
     const content = (isJumbled)? jumbled: in_order;
     const transition_name = (isJumbled)? 'jumbled_transition': 'transition';
 

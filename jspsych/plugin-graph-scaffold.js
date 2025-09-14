@@ -315,7 +315,6 @@ var jsPsychGraphScaffold = (function (jspsych) {
         // next_button.removeAttribute("disabled");
       }
 	    if (trial.input_required) {
-        console.log("input required");
         next_button.disabled = true;
         // next_button.setAttribute("disabled", "disabled");
       }
