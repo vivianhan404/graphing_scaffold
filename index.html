@@ -665,7 +665,7 @@
     ];
 
     const isJumbled = jsPsych.randomization.sampleBernoulli(0.5);
-    console.log(isJumbled);
+    jsPsych.data.addProperties({'order': (isJumbled)? "control": "scaffold"});
     const content = (isJumbled)? jumbled: in_order;
     const transition_name = (isJumbled)? 'jumbled_transition': 'transition';
 
