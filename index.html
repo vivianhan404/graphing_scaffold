@@ -117,7 +117,7 @@
       }
     ];
 
-    const regular_tree_graph = [
+    const regular_tree_intro = [
       {
         type: jsPsychVideoButtonResponse,
         stimulus: [BASEDIR + "mp4/1_regular_tree_graph_demo.mp4"],
@@ -126,6 +126,9 @@
         button_html: next_button,
         response_allowed_while_playing: debug,
       },
+    ];
+
+    const regular_tree_graph = [
       {
         type: jsPsychGraphScaffold,
         button_img: BASEDIR + "img/next.png",
@@ -166,7 +169,7 @@
         input_type: "rise",
         dynamic_height: 300,
       }
-    ]
+    ];
 
     const regular_bar_graph = [
       {
@@ -227,9 +230,10 @@
         initial_height: 0,
       }
     ];
+
     const regular = [
       tutorial_tree.concat(regular_tree_match),
-      regular_tree_graph,
+      regular_tree_intro.concat(regular_tree_graph),
       tutorial_bar.concat(regular_bar_match),
       regular_bar_graph,
       tutorial_dot.concat(regular_dot_match),
@@ -535,20 +539,140 @@
       }
     ];
 
-    const content = [
+    const jumbled_bar_match = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/jumbled_bar_match.png",
+        dynamic_image: BASEDIR + "img/2_regular_bar_single.png",
+        audio: BASEDIR + "mp3/2_regular_bar_match.mp3",
+        prompt: "<p>Match the height of the bar!</p>",
+        input_required: !debug,
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_type: "rise",
+        dynamic_height: 300,
+      }
+    ];
+
+    const jumbled_bar_graph = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/2_regular_bar_graph.png",
+        dynamic_image: BASEDIR + "img/2_regular_bar_single.png",
+        audio: BASEDIR + "mp3/jumbled_bar_graph.mp3",
+        prompt: "<p>How tall is the tree on day 5?</p>",
+        input_required: !debug,
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_type: "rise",
+        dynamic_height: 300,
+      }
+    ];
+
+    const jumbled_dot_match = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/jumbled_dot_match.png",
+        dynamic_image: BASEDIR + "img/3_regular_dot_single.png",
+        audio: BASEDIR + "mp3/3_regular_dot_match.mp3", // TODO
+        prompt: "<p>Match the height of the dot!</p>",
+        input_required: !debug,
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_type: "click",
+        initial_height: 0,
+      }
+    ];
+
+    const jumbled_dot_graph = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/3_regular_dot_graph.png",
+        dynamic_image: BASEDIR + "img/3_regular_dot_single.png",
+        audio: BASEDIR + "mp3/jumbled_dot_graph.mp3",
+        prompt: "<p>How tall is the tree on day 5?</p>",
+        input_required: !debug,
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_type: "click",
+        initial_height: 0,
+      }
+    ];
+
+    const jumbled_alien_match = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/jumbled_alien_match.png",
+        dynamic_image: BASEDIR + "img/4_alien_dot_single.png",
+        audio: BASEDIR + "mp3/tree_match.mp3",
+        prompt: "<p>Match the height of the tree!</p>",
+        input_required: !debug,
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_type: "click",
+        initial_height: 0,
+      }
+    ];
+
+    const jumbled_fruit_match = [
+      {
+        type: jsPsychGraphScaffold,
+        button_img: BASEDIR + "img/next.png",
+        static_image: BASEDIR + "img/jumbled_fruits_match.png",
+        dynamic_image: BASEDIR + "img/6_fruits_dot_single.png",
+        audio: BASEDIR + "mp3/6_fruits_match.mp3",
+        prompt: "<p>Match the number of fruits!</p>",
+        response_allowed_while_playing: debug,
+        allow_click: debug,
+        input_required: !debug,
+        input_type: "click",
+        initial_height: 0,
+      }
+    ];
+
+    const in_order = [
       regular,
       alien,
       fruit,
       toy, 
       ice_cream
     ].flat();
-    console.log("content len", content.length);
+
+    const jumbled = [
+      tutorial_dot.concat(jumbled_dot_match),
+      jumbled_dot_graph,
+      tutorial_bar.concat(jumbled_bar_match),
+      jumbled_bar_graph,
+      tutorial_tree.concat(regular_tree_match),
+      regular_tree_graph,
+      alien_2,
+      ice_cream_least,
+      ice_cream_most,
+      jumbled_alien_match,
+      alien_dots_graph,
+      alien_tree,
+      fruit_bar_match,
+      fruit_bar_graph,
+      toy_least,
+      toy_most,
+      jumbled_fruit_match,
+      fruit_dot_graph
+    ];
+
+    const isJumbled = true;
+    const content = (isJumbled)? jumbled: in_order;
+    const transition_name = (isJumbled)? 'jumbled_transition': 'transition';
 
     const transition = [];
     for (let i = 1; i < 18; i++) {
       const t = {
         type: jsPsychVideoButtonResponse,
-        stimulus: [BASEDIR + `mp4/transition_${i}.mp4`],
+        stimulus: [BASEDIR + `mp4/${transition_name}_${i}.mp4`],
         height: 400,
         choices: ["NEXT"],
         button_html: next_button,
