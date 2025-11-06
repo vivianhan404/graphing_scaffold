@@ -33,36 +33,9 @@
     const mp4 = (filename) => BASEDIR + `mp4/${filename}.mp4`;
     const get_version = (filename) => filename + ((isScaffold)? '_scaffold': '_jumbled');
 
-    function write_data_to_server(filename, filedata) {
-      /*
-      This function sends a data packet to the specified URL as a POST request.
-      The specified URL is for a PHP script that writes the POST request's
-      contents (`filename` and `filedata`) to a file on the server.
-      */
-      const url_write_data_php = BASEDIR + "write_data.php";
-      jQuery.ajax({
-        type: 'post',
-        cache: false,
-        url: url_write_data_php,
-        data: {
-          filename: "data/" + filename + ".json",
-          filedata: filedata,
-        },
-      });
-    }
-
+    // trial templates
     const next_html = (choice, choice_index) => 
       `<button class="jspsych-btn"><img src="${BASEDIR + "img/next.png"}" height="50px"/></button>`
-
-    // trial templates
-    const make_video_trial = (filename) => ({
-      type: jsPsychVideoButtonResponse,
-      stimulus: [mp4(filename)],
-      height: 400,
-      choices: ["NEXT"],
-      button_html: next_html,
-      response_allowed_while_playing: debug,
-    });
 
     const scaffold_base = {
       type: jsPsychGraphScaffold,
@@ -79,21 +52,29 @@
     const dot = { input_type: "click", initial_height: 0 };
     const match = { audio: mp3('tree_match'), prompt: "Match the height of the tree!" };
 
+    const make_video_trial = (filename) => ({
+      type: jsPsychVideoButtonResponse,
+      stimulus: [mp4(filename)],
+      height: 400,
+      choices: ["NEXT"],
+      button_html: next_html,
+      response_allowed_while_playing: debug,
+    });
+
     function make_least_most (img_name, prompt) {
       const make_clickable_columns = (choice, choice_index) => {
         let position = `z-index: 10;`;
         if (choice_index === 0) position += `margin-left: 55px;`;
-
-        return 
-          `<button class="jspsych-btn" 
+        return `
+          <button class="jspsych-btn" 
             key=${choice_index} 
             style="
               ${position} 
               height: 310px; width: 165px; 
               background-color: transparent;"
-          />`;
+          />
+        `;
       };
-      
       return {
         type: jsPsychAudioButtonResponse,
         stimulus_height: 365,
@@ -105,12 +86,25 @@
       };
     };
 
+    function write_data_to_server(filename, filedata) {
+      const url_write_data_php = BASEDIR + "write_data.php";
+      jQuery.ajax({
+        type: 'post',
+        cache: false,
+        url: url_write_data_php,
+        data: {
+          filename: "data/" + filename + ".json",
+          filedata: filedata,
+        },
+      });
+    }
+
     const warning = {
       type: jsPsychHtmlButtonResponse,
       stimulus: "<h1>This study requires a larger screen size. Please log in on another device.</h1>",
       choices: ['next'],
       button_html: (c, ci) => "<button hidden />",
-    }
+    };
     if (window.innerHeight < 650 || window.innerWidth < 900) {
       jsPsych.run([warning]);
       throw new Error("window is not large enough");
@@ -132,18 +126,13 @@
       },
       make_video_trial('intro'),
     ];
-    const outro = [
-      { // TODO done renamed to transition_{last idx}
-        ...make_video_trial('done.mp4'),
-        on_start: () => write_data_to_server(FILE_NAME, jsPsych.data.get().json())
-      },
-      {
-        type: jsPsychHtmlButtonResponse,
-        stimulus: "<h1>Press the green button under this window to complete the study.</h1>",
-        choices: ['next'],
-        button_html: (choice, choice_index) => '<button hidden />'
-      }
-    ];
+    const outro = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus: "<h1>Press the green button under this window to complete the study.</h1>",
+      choices: ['next'],
+      on_start: () => write_data_to_server(FILE_NAME, jsPsych.data.get().json()),
+      button_html: (choice, choice_index) => '<button hidden />'
+    };
 
     // 1a
     const tree_tutorial = make_video_trial('1a_tree_tutorial');
