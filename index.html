@@ -168,13 +168,13 @@
     };
 
     // 1c
-    const dot_explain = make_video_trial(get_version('1c_dot_intro'));
     const dot_tutorial = make_video_trial('1c_dot_tutorial');
     const dot_match = {
       ...scaffold_base, ...dot, ...match,
       static_image:   img('1c_dot_match'),
       dynamic_image:  img('1b_dot_single'),
     };
+    const dot_explain = make_video_trial(get_version('1c_dot_intro'));
     const dot_graph = {
       ...scaffold_base, ...dot,
       static_image:   img('1c_dot_graph'),
@@ -254,16 +254,16 @@
 
     const tree_pic = [[tree_tutorial, tree_match], [tree_explain, tree_graph]];
     const tree_trunk = [[trunk_explain, trunk_graph]];
-    const tree_dot = [[dot_explain, dot_tutorial, dot_match], [dot_graph]];
+    const tree_dot = [[dot_tutorial, dot_match], [dot_explain, dot_graph]];
     const alien = [[alien_tree], [alien_dot], [alien_v]];
     const fruit = [[fruit_explain, fruit_graph_1, fruit_graph_2]];
-    const toy = [[toy_explain, toy_least, toy_most, toy_why]];
-    const icecream = [[icecream_explain, icecream_least, icecream_most, icecream_why]];
+    const toy = [[toy_explain, toy_least], [toy_most], [toy_why]];
+    const icecream = [[icecream_explain, icecream_least], [icecream_most], [icecream_why]];
     
     const content_steps = (isScaffold)
       ? [].concat( tree_pic, tree_trunk, tree_dot, alien, fruit, toy, icecream )
       : [].concat( tree_dot, tree_trunk, tree_pic, [alien_v], icecream, [alien_dot], [alien_tree], toy, fruit );
-    const transition_name = (isScaffold)? 'scaffold_transition': 'jumbled_transition';
+    const transition_name = (isScaffold)? 'scaffold': 'jumbled';
     const content_trials = content_steps.map((step, idx) => [
       step,
       make_video_trial(`${transition_name}_${idx}`)
