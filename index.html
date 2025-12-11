@@ -141,11 +141,12 @@
       static_image:   img('1a_tree_match'),
       dynamic_image:  img('1a_tree_single'),
     };
-    const tree_explain = make_video_trial(get_version('1a_tree_intro'));
+    const tree_explain = make_video_trial('1a_tree_intro');
     const tree_graph = {
       ...scaffold_base, ...pic,
       static_image:   img('1a_tree_graph'),
       dynamic_image:  img('1a_tree_single'),
+      audio:          mp3('1a_tree_graph'),
     };
     
     // 1b
@@ -154,20 +155,23 @@
       ...scaffold_base, ...bar,
       static_image:   img('1b_trunk_graph'),
       dynamic_image:  img('1b_trunk_single'),
+      audio:          mp3(get_version('1b_trunk_graph')),
     };
 
     // 1c
-    const dot_tutorial = make_video_trial('1c_dot_tutorial');
+    const dot_tutorial = make_video_trial(get_version('1c_dot_tutorial'));
     const dot_match = {
       ...scaffold_base, ...dot, ...match,
       static_image:   img('1c_dot_match'),
       dynamic_image:  img('1b_dot_single'),
+      audio:          mp3('1c_dot_match'),
     };
-    const dot_explain = make_video_trial(get_version('1c_dot_intro'));
+    const dot_explain = make_video_trial('1c_dot_intro');
     const dot_graph = {
       ...scaffold_base, ...dot,
       static_image:   img('1c_dot_graph'),
       dynamic_image:  img('1b_dot_single'),
+      audio:          mp3(get_version('1c_dot_graph')),
     };
 
     // 2
@@ -182,13 +186,13 @@
       ...scaffold_base, ...dot,
       static_image:   img('2_alien_dot_graph'),
       dynamic_image:  img('2_alien_dot_single'),
-      audio: mp3(get_version('2_alien_dot'))
+      audio: mp3('2_alien_dot')
     };
     const alien_v = {
       ...scaffold_base, ...dot,
       static_image:   img('2_alien_v_graph'),
       dynamic_image:  img('2_alien_v_single'),
-      audio:  mp3(get_version('2_alien_v')),
+      audio:  mp3('2_alien_v'),
       prompt: "<p>How tall is the tree on day 11?</p>",
       input_width: 125,
     };
