@@ -166,7 +166,7 @@
       dynamic_image:  img('1b_dot_single'),
       audio:          mp3('1c_dot_match'),
     };
-    const dot_explain = make_video_trial('1c_dot_intro');
+    const dot_explain = make_video_trial(get_version('1c_dot_intro'));
     const dot_graph = {
       ...scaffold_base, ...dot,
       static_image:   img('1c_dot_graph'),
@@ -245,17 +245,25 @@
     const icecream_why = make_video_trial('5_icecream_why');
     icecream_why.prompt = 'Why do you think the most ice cream was sold that month? Answer out loud!';
 
-    const tree_pic = [[tree_tutorial, tree_match], [tree_explain, tree_graph]];
-    const tree_trunk = [[trunk_explain, trunk_graph]];
-    const tree_dot = [[dot_tutorial, dot_match], [dot_explain, dot_graph]];
+    const tree_scaffold = [
+      [tree_tutorial, tree_match], [tree_explain, tree_graph],
+      [trunk_explain, trunk_graph],
+      [dot_tutorial, dot_match], [dot_explain, dot_graph]
+    ];
+    const tree_jumbled = [
+      [dot_tutorial, dot_match], [dot_graph, dot_explain],
+      [tree_tutorial, tree_match], [trunk_graph],
+      [tree_explain, tree_graph]
+    ];
     const alien = [[alien_tree], [alien_dot], [alien_v]];
     const fruit = [[fruit_explain, fruit_graph_1, fruit_graph_2]];
     const toy = [[toy_explain, toy_least], [toy_most], [toy_why]];
     const icecream = [[icecream_explain, icecream_least], [icecream_most], [icecream_why]];
     
+
     const content_steps = (isScaffold)
-      ? [].concat( tree_pic, tree_trunk, tree_dot, alien, fruit, toy, icecream )
-      : [].concat( tree_dot, tree_trunk, tree_pic, [alien_v], icecream, [alien_dot], [alien_tree], toy, fruit );
+      ? tree_scaffold.concat( alien, fruit, toy, icecream )
+      : tree_jumbled.concat( [alien_v], icecream, [alien_dot], [alien_tree], toy, fruit );
     const transition_name = (isScaffold)? 'scaffold': 'jumbled';
     const content_trials = content_steps.map((step, idx) => [
       step,
