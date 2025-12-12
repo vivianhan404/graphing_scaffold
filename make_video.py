@@ -22,21 +22,13 @@ def convert(img, mp3, mp4):
 #     continue
 #   print(name)
 #   convert(name)
-diff = {
-  6: '4_alien_intro',
-  7: '8_ice_cream_intro',
-  9: '5_alien2_intro',
-  12: '6_fruits_intro',
-  14: '7_toy_intro'
-}
-for i in range(1, 18, 1):
-  if i in diff.keys():
-    convert(str(i), diff[i], 'jumbled_transition_' + str(i))
-  else:   
-    convert(str(i), 'transition', 'jumbled_transition_' + str(i))
+# diff = {
+#   6: '4_alien_intro',
+#   7: '8_ice_cream_intro',
+#   9: '5_alien2_intro',
+#   12: '6_fruits_intro',
+#   14: '7_toy_intro'
+# }
+for i in range(1, 16):
+  convert('transitions/jumbled_' + str(i), 'transition', 'transition_jumbled_' + str(i))
 # convert('18', 'done', 'done')
-
-# convert('7_toy_graph', '7_toy_least_why', '7_toy_least_why')
-# convert('7_toy_graph', '7_toy_most_why', '7_toy_most_why')
-# convert('8_ice_cream_graph', '8_ice_cream_least_why', '8_ice_cream_least_why')
-# convert('8_ice_cream_graph', '8_ice_cream_most_why', '8_ice_cream_most_why')
