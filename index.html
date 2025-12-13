@@ -263,15 +263,15 @@
 
     const content_steps = (isScaffold)
       ? tree_scaffold.concat( alien, fruit, toy, icecream )
-      : tree_jumbled.concat( [alien_v], icecream, [alien_dot], [alien_tree], toy, fruit );
+      : tree_jumbled.concat( [[alien_v]], icecream, [[alien_dot]], [[alien_tree]], toy, fruit );
     console.log(content_steps);
     const transition_name = (isScaffold)? 'scaffold': 'jumbled';
-    // const content_trials = content_steps.map((s, idx) => {
-    //   console.log(s);
-    //   return s.concat([ make_video_trial(`${transition_name}_${idx}`)])
-    // });
+    const content_trials = content_steps.map((s, idx) => {
+      // console.log(s);
+      return s.concat([ make_video_trial(`transition_${transition_name}_${idx+1}`)])
+    });
 
-    const all_trials = [preload, intro, content_steps, outro].flat(Infinity);
+    const all_trials = [preload, intro, content_trials, outro].flat(Infinity);
     jsPsych.run(all_trials);
     console.log(all_trials);
   </script>
