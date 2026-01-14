@@ -29,6 +29,7 @@ def convert(img, mp3, mp4):
 #   12: '6_fruits_intro',
 #   14: '7_toy_intro'
 # }
-for i in range(1, 16):
+LEN = 16
+for i in range(1, LEN + 1):
+  convert('transitions/scaffold_' + str(i), 'transition', 'transition_scaffold_' + str(i))
   convert('transitions/jumbled_' + str(i), 'transition', 'transition_jumbled_' + str(i))
-# convert('18', 'done', 'done')

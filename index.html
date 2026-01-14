@@ -198,19 +198,35 @@
     };
 
     // 3
-    const fruit_explain = make_video_trial(get_version('3_fruit_intro'));
-    const fruit_graph_1 = {
-      ...scaffold_base, ...dot,
-      static_image:   img('3_fruit_graph_1'),
-      dynamic_image:  img('3_fruit_single'),
+    const fruit_bar_explain = make_video_trial(get_version('3_fruit_bar_intro'));
+    const fruit_bar_1 = {
+      ...scaffold_base, ...bar,
+      static_image:   img('3_fruit_bar_1'),
+      dynamic_image:  img('3_fruit_bar_single'),
       audio:          mp3('3_fruit_graph_1'),
       prompt: "<p>How many fruits were picked on day 4?</p>",
       input_margin_right: 180,
     };
-    const fruit_graph_2 = {
+    const fruit_bar_2 = {
+      ...scaffold_base, ...bar,
+      static_image:   img('3_fruit_bar_2'),
+      dynamic_image:  img('3_fruit_bar_single'),
+      audio:          mp3('3_fruit_graph_2'),
+      prompt: "<p>How many fruits were picked on day 5?</p>",
+    };
+    const fruit_dot_explain = make_video_trial(get_version('3_fruit_dot_intro'));
+    const fruit_dot_1 = {
       ...scaffold_base, ...dot,
-      static_image:   img('3_fruit_graph_2'),
-      dynamic_image:  img('3_fruit_single'),
+      static_image:   img('3_fruit_dot_1'),
+      dynamic_image:  img('3_fruit_dot_single'),
+      audio:          mp3('3_fruit_graph_1'),
+      prompt: "<p>How many fruits were picked on day 4?</p>",
+      input_margin_right: 180,
+    };
+    const fruit_dot_2 = {
+      ...scaffold_base, ...dot,
+      static_image:   img('3_fruit_dot_2'),
+      dynamic_image:  img('3_fruit_dot_single'),
       audio:          mp3('3_fruit_graph_2'),
       prompt: "<p>How many fruits were picked on day 5?</p>",
     };
@@ -256,7 +272,7 @@
       [tree_explain, tree_graph]
     ];
     const alien = [[alien_tree], [alien_dot], [alien_v]];
-    const fruit = [[fruit_explain, fruit_graph_1, fruit_graph_2]];
+    const fruit = [[fruit_bar_explain, fruit_bar_1, fruit_bar_2], [fruit_dot_explain, fruit_dot_1, fruit_dot_2]];
     const toy = [[toy_explain, toy_least], [toy_most], [toy_why]];
     const icecream = [[icecream_explain, icecream_least], [icecream_most], [icecream_why]];
     
@@ -271,7 +287,7 @@
       return s.concat([ make_video_trial(`transition_${transition_name}_${idx+1}`)])
     });
 
-    const all_trials = [preload, intro, content_trials, outro].flat(Infinity);
+    const all_trials = [preload, intro, content_trials, outro].flat();
     jsPsych.run(all_trials);
     console.log(all_trials);
   </script>
